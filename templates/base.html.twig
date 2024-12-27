@@ -11,7 +11,31 @@
         {% block javascripts %}
         {% endblock %}
     </head>
-    <body>
+<body class="bg-gray-900 text-gray-100">
+    <header class="bg-gray-800 shadow-md border-b border-gray-700">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="{{ path('home_index') }}" class="text-3xl font-bold text-gray-100 tracking-wide hover:text-gray-400">Food<span class="text-red-600">ipedia</span></a>
+            <nav>
+                <ul class="flex space-x-6 text-gray-300 font-medium">
+                    {# Uncomment these if needed:
+                    <li><a href="{{ path('recipe_index') }}" class="hover:text-gray-100">Recipes</a></li>
+                    <li><a href="{{ path('ingredient_index') }}" class="hover:text-gray-100">Ingredients</a></li> 
+                    #}
+                    {% if app.user %}
+                        <li><a href="{{ path('app_logout') }}" class="hover:text-red-500 transition">Log Out</a></li>
+                    {% else %}
+                        <li><a href="{{ path('app_login') }}" class="hover:text-gray-100 transition">Log In</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="container mx-auto mt-10">
         {% block body %}{% endblock %}
-    </body>
+    </main>
+    <footer class="bg-gray-800 mt-10 py-6 shadow-md text-center text-gray-400 border-t border-gray-700">
+        <p>&copy; {{ "now"|date("Y") }} Recipe App. All rights reserved.</p>
+        <p>Crafted with <span class="text-red-600">&hearts;</span> for culinary explorers.</p>
+    </footer>
+</body>
 </html>
