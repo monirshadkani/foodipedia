@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/recipes')]
 final class RecipesController extends AbstractController
 {
-    #[Route(name: 'recipes_index', methods: ['GET'])]
+    #[Route(name: 'app_recipes_index', methods: ['GET'])]
     public function index(RecipesRepository $recipesRepository): Response
     {
         return $this->render('recipes/index.html.twig', [
@@ -26,12 +26,19 @@ final class RecipesController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $recipe = new Recipes();
+
         $form = $this->createForm(RecipesType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($recipe);
             $entityManager->flush();
+
+            $ingredients_list = '';
+            $ingredient_details = $form["ingredients"]->getData();
+
+            var_dump($ingredient_details);
+            die();
 
             return $this->redirectToRoute('app_recipes_index', [], Response::HTTP_SEE_OTHER);
         }

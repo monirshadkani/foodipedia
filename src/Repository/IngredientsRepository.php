@@ -16,6 +16,11 @@ class IngredientsRepository extends ServiceEntityRepository
         parent::__construct($registry, Ingredients::class);
     }
 
+    public function findAllIngredients()
+    {
+        return $this->findAll();
+    }
+
     //    /**
     //     * @return Ingredients[] Returns an array of Ingredients objects
     //     */
